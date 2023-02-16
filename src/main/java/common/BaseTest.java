@@ -1,3 +1,5 @@
+package common;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,7 +15,7 @@ public class BaseTest extends BaseAction {
     }
 
     public enum BROWSER {
-        CHROME, FIREFOX, EDGE;
+        CHROME, FIREFOX;
     }
 
     protected WebDriver getBrowserDriver(String browserName, String appUrl) {
@@ -24,13 +26,9 @@ public class BaseTest extends BaseAction {
         } else if (browser == BROWSER.CHROME) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
-        } else if (browser == BROWSER.EDGE) {
-            WebDriverManager.edgedriver().setup();
-            driver = new EdgeDriver();
         } else {
             throw new RuntimeException("please enter correct browser name");
         }
-
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.get(appUrl);
         return driver;
